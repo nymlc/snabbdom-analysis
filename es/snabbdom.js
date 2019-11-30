@@ -82,9 +82,20 @@ export function init(modules, domApi) {
         var _a, _b, _c;
         let i, data = vnode.data;
         if (data !== undefined) {
+            // 就是获取init hook
+            /**
+                h('div', {
+                    hook: {
+                        init(vnode) {
+                            console.log(vnode)
+                        }
+                    }
+                }, [12])
+             */
             const init = (_a = data.hook) === null || _a === void 0 ? void 0 : _a.init;
             if (isDef(init)) {
                 init(vnode);
+                // 因为init hook可能处理了这个vnode导致vnode.data有变化，这里缓存下data下文待用
                 data = vnode.data;
             }
         }
@@ -102,7 +113,8 @@ export function init(modules, domApi) {
             // Parse selector
             const hashIdx = sel.indexOf('#');
             const dotIdx = sel.indexOf('.', hashIdx);
-            // 若是id或者class没有的话
+            // 若是id或者class没有的话那么就赋予sel字符长度
+            // 和下文的if (hash < dot)配套
             const hash = hashIdx > 0 ? hashIdx : sel.length;
             const dot = dotIdx > 0 ? dotIdx : sel.length;
             // 解析出tagName
@@ -113,6 +125,7 @@ export function init(modules, domApi) {
                 ? api.createElementNS(i, tag)
                 : api.createElement(tag);
             // 要是hash小于dot的话，那么肯定有id，因为id只能在前   #a --> a
+            // 没有class的话，dot就是sel长度，也是必然大于大于hash的
             if (hash < dot)
                 elm.setAttribute('id', sel.slice(hash + 1, dot));
             // 设置class   .a.b --> a b
@@ -135,16 +148,29 @@ export function init(modules, domApi) {
                 api.appendChild(elm, api.createTextNode(vnode.text));
             }
             const hook = vnode.data.hook;
+            /*
+            h('rect', {
+                hook: {
+                    insert(vnode) {
+                        console.log(vnode)
+                    }
+                }
+            })
+            */
             if (isDef(hook)) {
+                // if (hook.create) hook.create(emptyNode, vnode)
                 (_c = (_b = hook).create) === null || _c === void 0 ? void 0 : _c.call(_b, emptyNode, vnode);
                 if (hook.insert) {
+                    // 若是有insert钩子，那么则将其回调push到insertedVnodeQueue，最后在patch批量触发
                     insertedVnodeQueue.push(vnode);
                 }
             }
         }
         else {
+            // 没有声明sel，那么就是文本节点，这里其实就是h.js ln: 115
             vnode.elm = api.createTextNode(vnode.text);
         }
+        // 返回以上创建的elm
         return vnode.elm;
     }
     function addVnodes(parentElm, before, vnodes, startIdx, endIdx, insertedVnodeQueue) {
@@ -172,6 +198,15 @@ export function init(modules, domApi) {
             }
         }
     }
+
+    /**批量删除dom节点
+     *
+     *
+     * @param {*} parentElm 待删除元素的父节点
+     * @param {*} vnodes 待删除的节点
+     * @param {*} startIdx 删除的起始坐标
+     * @param {*} endIdx 删除的结束坐标
+     */
     function removeVnodes(parentElm, vnodes, startIdx, endIdx) {
         var _a, _b, _c;
         for (; startIdx <= endIdx; ++startIdx) {
@@ -318,27 +353,38 @@ export function init(modules, domApi) {
     }
     return function patch(oldVnode, vnode) {
         let i, elm, parent;
+        // 创建插入队列，最终都是传入到createElm方法里push要转成dom的每一个vnode
         const insertedVnodeQueue = [];
+        // 
         for (i = 0; i < cbs.pre.length; ++i)
             cbs.pre[i]();
         if (!isVnode(oldVnode)) {
             oldVnode = emptyNodeAt(oldVnode);
         }
         if (sameVnode(oldVnode, vnode)) {
+            // 若是俩节点相似，那么更新即可
             patchVnode(oldVnode, vnode, insertedVnodeQueue);
         }
         else {
+            debugger
+            // 若是不相似，那么把旧节点整个干掉，替换成新的即可
             elm = oldVnode.elm;
+            // 获取现有节点的父元素，用于之后插入新元素以及删除旧元素
             parent = api.parentNode(elm);
+            // 创建新元素dom
             createElm(vnode, insertedVnodeQueue);
             if (parent !== null) {
+                // 这时候vnode里以及挂载了新创建的elm，插入到旧元素之后
                 api.insertBefore(parent, vnode.elm, api.nextSibling(elm));
+                // 真正去删除旧节点
                 removeVnodes(parent, [oldVnode], 0, 0);
             }
         }
+        // 循环遍历触发insert钩子，这时候已经插入到DOM树了
         for (i = 0; i < insertedVnodeQueue.length; ++i) {
             insertedVnodeQueue[i].data.hook.insert(insertedVnodeQueue[i]);
         }
+        // patch完成后触发post回调
         for (i = 0; i < cbs.post.length; ++i)
             cbs.post[i]();
         return vnode;
