@@ -84,10 +84,9 @@ function updateEventListeners(oldVnode, vnode) {
         }
     }
 }
-export var eventListenersModule = {
+export const eventListenersModule = {
     create: updateEventListeners,
     update: updateEventListeners,
     destroy: updateEventListeners
 };
 export default eventListenersModule;
-//# sourceMappingURL=eventlisteners.js.map

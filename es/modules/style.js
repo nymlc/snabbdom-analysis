@@ -27,7 +27,7 @@ function updateStyle(oldVnode, vnode) {
     for (name in style) {
         cur = style[name];
         if (name === 'delayed' && style.delayed) {
-            for (var name2 in style.delayed) {
+            for (let name2 in style.delayed) {
                 cur = style.delayed[name2];
                 if (!oldHasDel || cur !== oldStyle.delayed[name2]) {
                     setNextFrame(elm.style, name2, cur);
@@ -83,7 +83,7 @@ function applyRemoveStyle(vnode, rm) {
 function forceReflow() {
     reflowForced = false;
 }
-export var styleModule = {
+export const styleModule = {
     pre: forceReflow,
     create: updateStyle,
     update: updateStyle,
@@ -91,4 +91,3 @@ export var styleModule = {
     remove: applyRemoveStyle
 };
 export default styleModule;
-//# sourceMappingURL=style.js.map

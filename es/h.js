@@ -39,8 +39,8 @@ function addNS(data, children, sel) {
     // </svg>
     // 它本身不用添加ns
     if (sel !== 'foreignObject' && children !== undefined) {
-        for (var i = 0; i < children.length; ++i) {
-            var childData = children[i].data;
+        for (let i = 0; i < children.length; ++i) {
+            let childData = children[i].data;
             if (childData !== undefined) {
                 addNS(childData, children[i].children, children[i].sel);
             }
@@ -125,4 +125,3 @@ export function h(sel, b, c) {
 }
 ;
 export default h;
-//# sourceMappingURL=h.js.map

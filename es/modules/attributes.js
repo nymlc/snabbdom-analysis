@@ -1,8 +1,7 @@
-var xlinkNS = 'http://www.w3.org/1999/xlink';
-var xmlNS = 'http://www.w3.org/XML/1998/namespace';
-var colonChar = 58;
-var xChar = 120;
-
+const xlinkNS = 'http://www.w3.org/1999/xlink';
+const xmlNS = 'http://www.w3.org/XML/1998/namespace';
+const colonChar = 58;
+const xChar = 120;
 /**
  *
  *
@@ -21,8 +20,8 @@ function updateAttrs(oldVnode, vnode) {
     // update modified attributes, add new attributes
     // 遍历新node的attrs，若是和旧的不一样，那么久更新attr
     for (key in attrs) {
-        var cur = attrs[key];
-        var old = oldAttrs[key];
+        const cur = attrs[key];
+        const old = oldAttrs[key];
         if (old !== cur) {
             if (cur === true) {
                 // 若新的值是true，那么久设置为空
@@ -63,6 +62,5 @@ function updateAttrs(oldVnode, vnode) {
         }
     }
 }
-export var attributesModule = { create: updateAttrs, update: updateAttrs };
+export const attributesModule = { create: updateAttrs, update: updateAttrs };
 export default attributesModule;
-//# sourceMappingURL=attributes.js.map

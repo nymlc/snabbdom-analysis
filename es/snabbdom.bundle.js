@@ -13,6 +13,5 @@ var patch = init([
     eventListenersModule
 ]);
 // 创建Virtual DOM（h）、比较新旧DOM且更新UI（patch）
-export var snabbdomBundle = { patch: patch, h: h };
+export const snabbdomBundle = { patch, h: h };
 export default snabbdomBundle;
-//# sourceMappingURL=snabbdom.bundle.js.map

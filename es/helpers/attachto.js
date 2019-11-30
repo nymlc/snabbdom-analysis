@@ -1,5 +1,5 @@
 function pre(vnode, newVnode) {
-    var attachData = vnode.data.attachData;
+    const attachData = vnode.data.attachData;
     // Copy created placeholder and real element from old vnode
     newVnode.data.attachData.placeholder = attachData.placeholder;
     newVnode.data.attachData.real = attachData.real;
@@ -19,8 +19,8 @@ function destroy(vnode) {
     vnode.elm = vnode.data.attachData.real;
 }
 function create(_, vnode) {
-    var real = vnode.elm, attachData = vnode.data.attachData;
-    var placeholder = document.createElement('span');
+    const real = vnode.elm, attachData = vnode.data.attachData;
+    const placeholder = document.createElement('span');
     // Replace actual element with dummy placeholder
     // Snabbdom will then insert placeholder instead
     vnode.elm = placeholder;
@@ -33,8 +33,8 @@ export function attachTo(target, vnode) {
         vnode.data = {};
     if (vnode.data.hook === undefined)
         vnode.data.hook = {};
-    var data = vnode.data;
-    var hook = vnode.data.hook;
+    const data = vnode.data;
+    const hook = vnode.data.hook;
     data.attachData = { target: target, placeholder: undefined, real: undefined };
     hook.create = create;
     hook.prepatch = pre;
@@ -44,4 +44,3 @@ export function attachTo(target, vnode) {
 }
 ;
 export default attachTo;
-//# sourceMappingURL=attachto.js.map

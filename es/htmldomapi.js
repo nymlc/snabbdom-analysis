@@ -43,22 +43,21 @@ function isText(node) {
 function isComment(node) {
     return node.nodeType === 8;
 }
-export var htmlDomApi = {
-    createElement: createElement,
-    createElementNS: createElementNS,
-    createTextNode: createTextNode,
-    createComment: createComment,
-    insertBefore: insertBefore,
-    removeChild: removeChild,
-    appendChild: appendChild,
-    parentNode: parentNode,
-    nextSibling: nextSibling,
-    tagName: tagName,
-    setTextContent: setTextContent,
-    getTextContent: getTextContent,
-    isElement: isElement,
-    isText: isText,
-    isComment: isComment,
+export const htmlDomApi = {
+    createElement,
+    createElementNS,
+    createTextNode,
+    createComment,
+    insertBefore,
+    removeChild,
+    appendChild,
+    parentNode,
+    nextSibling,
+    tagName,
+    setTextContent,
+    getTextContent,
+    isElement,
+    isText,
+    isComment,
 };
 export default htmlDomApi;
-//# sourceMappingURL=htmldomapi.js.map

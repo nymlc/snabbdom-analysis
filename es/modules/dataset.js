@@ -1,13 +1,13 @@
-var CAPS_REGEX = /[A-Z]/g;
+const CAPS_REGEX = /[A-Z]/g;
 function updateDataset(oldVnode, vnode) {
-    var elm = vnode.elm, oldDataset = oldVnode.data.dataset, dataset = vnode.data.dataset, key;
+    let elm = vnode.elm, oldDataset = oldVnode.data.dataset, dataset = vnode.data.dataset, key;
     if (!oldDataset && !dataset)
         return;
     if (oldDataset === dataset)
         return;
     oldDataset = oldDataset || {};
     dataset = dataset || {};
-    var d = elm.dataset;
+    const d = elm.dataset;
     for (key in oldDataset) {
         if (!dataset[key]) {
             if (d) {
@@ -32,6 +32,5 @@ function updateDataset(oldVnode, vnode) {
         }
     }
 }
-export var datasetModule = { create: updateDataset, update: updateDataset };
+export const datasetModule = { create: updateDataset, update: updateDataset };
 export default datasetModule;
-//# sourceMappingURL=dataset.js.map

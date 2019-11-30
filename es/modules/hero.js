@@ -137,6 +137,5 @@ function post() {
     }
     removed = created = undefined;
 }
-export var heroModule = { pre: pre, create: create, destroy: destroy, post: post };
+export const heroModule = { pre, create, destroy, post };
 export default heroModule;
-//# sourceMappingURL=hero.js.map
