@@ -3,22 +3,23 @@ const h = snabbdom.h
 
 const container = document.getElementById('container')
 
-const vnode = h('div#a.b.c', {
-    id: 'container'
-}, [
-    h('span', {
-        style: {
-            fontWeight: 'bold'
-        }
-    }, 'This is bold'),
-    ' and this is just normal text',
-    h('a', {
-        props: {
-            href: '/foo'
-        }
-    }, 'I\'ll take you places!')
-])
-
+// const vnode = h('svg', {
+//     attrs: {
+//         width: '100%',
+//         height: '100%'
+//     },
+// }, [h('rect', {
+//     attrs: {
+//         width: 300,
+//         height: 100
+//     },
+//     style: {
+//         fill: 'rgb(0, 0, 255)',
+//         strokeWidth: 1,
+//         stroke: 'rgb(0, 0, 0)'
+//     }
+// })])
+const vnode = h('div#a', 'abc')
 console.log(vnode)
 patch(container, vnode)
 

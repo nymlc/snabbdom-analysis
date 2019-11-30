@@ -4,7 +4,7 @@ const {
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = [{
-        entry: './snabbdom/es/snabbdom.bundle.js',
+        entry: './es/snabbdom.bundle.js',
         output: {
             libraryTarget: 'umd',
             libraryExport: 'default',
