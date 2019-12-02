@@ -103,6 +103,7 @@ export function init(modules, domApi) {
                     }
                 }, [12])
              */
+            // const init = data.hook?.init;
             const init = (_a = data.hook) === null || _a === void 0 ? void 0 : _a.init;
             if (isDef(init)) {
                 init(vnode);

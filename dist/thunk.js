@@ -60,44 +60,39 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(3);
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 const patch = snabbdom.patch
 const h = snabbdom.h
-
+const thunk = ThunkLib
 const container = document.getElementById('container')
 
-const vnode = h('ul', [h('li', {
-    key: 0
-}, 'A'), h('li', {
-    key: 1
-}, 'B'), h('li', {
-    key: 2
-}, 'C'), h('li', {
-    key: 3
-}, 'D')])
-patch(container, vnode)
+function renderNumber(num) {
+    debugger
+    return h('span', num);
+}
 
-const nVnode = h('ul', [h('li', {
-    key: 3
-}, 'D'), h('li', {
-    key: 1
-}, 'B'), h('li', {
-    key: 2
-}, 'C'),h('li', {
-    key: 0
-}, 'A'), h('li', {
-    key: 4
-}, 'E')])
-setTimeout(function() {
-    patch(vnode, nVnode)
-}, 3000)
+function render(num) {
+    return thunk('div', renderNumber, [num]);
+}
+
+const vnode = patch(container, render(1))
+// 由于num 相同，renderNumber 不会执行
+patch(vnode, render(1))
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map

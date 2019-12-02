@@ -10,8 +10,8 @@
     "webpack-dev-server": "^2.9.7"
   },
   "scripts": {
-    "build": "webpack --display-modules --display-optimization-bailout",
-    "start": "webpack-dev-server"
+    "build": "NODE_ENV=production webpack --display-modules --display-optimization-bailout",
+    "start": "NODE_ENV=development webpack-dev-server"
   },
   "repository": {
     "type": "git",

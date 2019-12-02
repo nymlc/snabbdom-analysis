@@ -2,7 +2,6 @@ const {
     join
 } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
 module.exports = [{
         entry: './es/snabbdom.bundle.js',
         output: {
@@ -13,17 +12,47 @@ module.exports = [{
             path: join(__dirname, 'dist')
         },
         devtool: "source-map"
-    },
-    {
-        entry: './demo/app.js',
+    }, {
+        entry: './es/thunk.js',
         output: {
-            filename: 'bundle.js',
+            libraryTarget: 'umd',
+            libraryExport: 'default',
+            library: 'ThunkLib',
+            filename: 'thunkLib.js',
             path: join(__dirname, 'dist')
         },
-        devtool: "source-map",
+        devtool: "source-map"
+    },
+    {
+        entry: {
+            updateChildren: ['./demo/updateChildren.js'],
+            thunk: ['./demo/thunk.js']
+        },
+        output: {
+            filename: '[name].js',
+            path: join(__dirname, 'dist'),
+            chunkFilename: '[name].js'
+        },
+        devtool: process.env.NODE_ENV === 'development' ? "source-map" : false,
         plugins: [
             new HtmlWebpackPlugin({
-                title: 'snabbdom',
+                title: 'updateChildren',
+                chunks: [
+                    'chunk-vendors',
+                    'chunk-common',
+                    'updateChildren'
+                ],
+                filename: 'index.html',
+                template: 'demo/index.ejs'
+            }),
+            new HtmlWebpackPlugin({
+                title: 'thunk',
+                chunks: [
+                    'chunk-vendors',
+                    'chunk-common',
+                    'thunk'
+                ],
+                filename: 'thunk.html',
                 template: 'demo/index.ejs'
             })
         ]
