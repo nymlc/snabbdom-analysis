@@ -26,7 +26,8 @@ module.exports = [{
     {
         entry: {
             updateChildren: ['./demo/updateChildren.js'],
-            thunk: ['./demo/thunk.js']
+            thunk: ['./demo/thunk.js'],
+            props: ['./demo/props.js']
         },
         output: {
             filename: '[name].js',
@@ -53,6 +54,16 @@ module.exports = [{
                     'thunk'
                 ],
                 filename: 'thunk.html',
+                template: 'demo/index.ejs'
+            }),
+            new HtmlWebpackPlugin({
+                title: 'props',
+                chunks: [
+                    'chunk-vendors',
+                    'chunk-common',
+                    'props'
+                ],
+                filename: 'props.html',
                 template: 'demo/index.ejs'
             })
         ]
