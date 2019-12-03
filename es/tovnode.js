@@ -1,5 +1,6 @@
 import vnode from './vnode';
 import htmlDomApi from './htmldomapi';
+// 就是讲dom转成vnode
 export function toVNode(node, domApi) {
     const api = domApi !== undefined ? domApi : htmlDomApi;
     let text;
