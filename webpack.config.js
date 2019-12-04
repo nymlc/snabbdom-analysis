@@ -22,12 +22,23 @@ module.exports = [{
             path: join(__dirname, 'dist')
         },
         devtool: "source-map"
+    }, {
+        entry: './es/helpers/attachto.js',
+        output: {
+            libraryTarget: 'umd',
+            libraryExport: 'default',
+            library: 'AttachToLib',
+            filename: 'attachToLib.js',
+            path: join(__dirname, 'dist')
+        },
+        devtool: "source-map"
     },
     {
         entry: {
             updateChildren: ['./demo/updateChildren.js'],
             thunk: ['./demo/thunk.js'],
-            props: ['./demo/props.js']
+            props: ['./demo/props.js'],
+            attachTo: ['./demo/attachTo.js']
         },
         output: {
             filename: '[name].js',
@@ -64,6 +75,16 @@ module.exports = [{
                     'props'
                 ],
                 filename: 'props.html',
+                template: 'demo/index.ejs'
+            }),
+            new HtmlWebpackPlugin({
+                title: 'attachTo',
+                chunks: [
+                    'chunk-vendors',
+                    'chunk-common',
+                    'attachTo'
+                ],
+                filename: 'attachTo.html',
                 template: 'demo/index.ejs'
             })
         ]
