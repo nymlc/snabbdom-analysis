@@ -43,8 +43,6 @@ function fn() {
 
 const vnode2 = patch(footer, h('div.btn', {
     on: {
-        click: () => {
-            fn()
-        }
+        click: [1, fn]
     }
 }, 'button'))
