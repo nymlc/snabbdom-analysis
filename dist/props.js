@@ -119,7 +119,7 @@ function fn() {
     }))
 }
 
-const vnode2 = patch(footer, h('div', {
+const vnode2 = patch(footer, h('div.btn', {
     on: {
         click: () => {
             fn()
