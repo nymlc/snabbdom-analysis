@@ -32,13 +32,24 @@ module.exports = [{
             path: join(__dirname, 'dist')
         },
         devtool: "source-map"
+    }, {
+        entry: './demo/fakeRaf.js',
+        output: {
+            libraryTarget: 'umd',
+            libraryExport: 'default',
+            library: 'fakeRaf',
+            filename: 'fakeRaf.js',
+            path: join(__dirname, 'dist')
+        },
+        devtool: "source-map"
     },
     {
         entry: {
             updateChildren: ['./demo/updateChildren.js'],
             thunk: ['./demo/thunk.js'],
             props: ['./demo/props.js'],
-            attachTo: ['./demo/attachTo.js']
+            attachTo: ['./demo/attachTo.js'],
+            style: ['./demo/style.js']
         },
         output: {
             filename: '[name].js',
@@ -85,6 +96,16 @@ module.exports = [{
                     'attachTo'
                 ],
                 filename: 'attachTo.html',
+                template: 'demo/index.ejs'
+            }),
+            new HtmlWebpackPlugin({
+                title: 'style',
+                chunks: [
+                    'chunk-vendors',
+                    'chunk-common',
+                    'style'
+                ],
+                filename: 'style.html',
                 template: 'demo/index.ejs'
             })
         ]

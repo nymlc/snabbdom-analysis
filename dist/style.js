@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["snabbdom"] = factory();
-	else
-		root["snabbdom"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -70,7 +60,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +68,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = h;
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["h"] = h;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vnode__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__is__ = __webpack_require__(2);
 
@@ -207,7 +198,7 @@ function h(sel, b, c) {
     return Object(__WEBPACK_IMPORTED_MODULE_0__vnode__["b" /* vnode */])(sel, data, children, text, undefined);
 }
 ;
-/* unused harmony default export */ var _unused_webpack_default_export = (h);
+/* harmony default export */ __webpack_exports__["default"] = (h);
 
 
 /***/ }),
@@ -253,52 +244,139 @@ function primitive(s) {
 
 
 /***/ }),
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(12);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const fakeRaf = window.fakeRaf;
+fakeRaf.use();
+const patch = __webpack_require__(13).init([
+    __webpack_require__(16).default,
+    __webpack_require__(17).default
+]);
+const h = __webpack_require__(0).default
+
+let container = document.getElementById('container')
+let footer = document.getElementById('footer')
+
+
+var elm, vnode0;
+elm = document.createElement('div');
+vnode0 = elm;
+
+function style1() {
+    var vnode1 = h('i', {
+        style: {
+            fontSize: '14px',
+            delayed: {
+                fontSize: '16px'
+            }
+        }
+    });
+    var vnode2 = h('i', {
+        style: {
+            fontSize: '18px',
+            delayed: {
+                fontSize: '20px'
+            }
+        }
+    }, 'demo');
+    elm = patch(vnode0, vnode1).elm;
+    container.appendChild(elm)
+    console.error(elm.style.fontSize)
+    fakeRaf.step();
+    fakeRaf.step();
+    console.log(elm.style.fontSize)
+    elm = patch(vnode1, vnode2).elm;
+    console.error(elm.style.fontSize)
+    fakeRaf.step();
+    fakeRaf.step();
+    console.log(elm.style.fontSize)
+}
+
+function style2() {
+    var btn1 = h('button#btn1', {
+        style: {
+            transition: 'transform 5s',
+            remove: {
+                transform: 'translateY(100%)'
+            }
+        }
+    }, ['A button']);
+    var btn2 = h('button#btn2', {
+        style: {
+            transition: 'transform 5s',
+            remove: {
+                transform: 'translateX(100%)'
+            }
+        }
+    }, ['B button']);
+    var vnode1 = h('div.parent', {}, [btn1, btn2]);
+    var vnode2 = h('div.parent', {}, [null, null]);
+    container.appendChild(vnode0);
+    patch(vnode0, vnode1);
+    patch(vnode1, vnode2);
+    const button1 = document.querySelector('#btn1');
+    console.log(button1)
+    button1.addEventListener('transitionend', function () {
+        console.error(document.querySelector('#btn1'))
+    });
+    const button2 = document.querySelector('#btn2');
+    console.log(button2)
+    button2.addEventListener('transitionend', function () {
+        console.error(document.querySelector('#btn2'))
+    });
+}
+const flag = localStorage.getItem('style')
+if (flag == 2) {
+    style2()
+} else {
+    style1()
+}
+patch(footer, h('div', [h('div.btn', {
+    on: {
+        click: () => {
+            localStorage.setItem('style', 1)
+            location.reload()
+        }
+    }
+}, '下一帧更新Style'), h('div.btn', {
+    on: {
+        click: () => {
+            localStorage.setItem('style', 2)
+            location.reload()
+        }
+    }
+}, '应用样式前强制页面回流')]))
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__snabbdom__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_attributes__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_class__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_props__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_style__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_eventlisteners__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__h__ = __webpack_require__(0);
-
- // for setting attributes on DOM elements
- // makes it easy to toggle classes
- // for setting properties on DOM elements
- // handles styling on elements with support for animations
- // attaches event listeners
- // helper function for creating vnodes
-var patch = Object(__WEBPACK_IMPORTED_MODULE_0__snabbdom__["a" /* init */])([
-    __WEBPACK_IMPORTED_MODULE_1__modules_attributes__["a" /* attributesModule */],
-    __WEBPACK_IMPORTED_MODULE_2__modules_class__["a" /* classModule */],
-    __WEBPACK_IMPORTED_MODULE_3__modules_props__["a" /* propsModule */],
-    __WEBPACK_IMPORTED_MODULE_4__modules_style__["a" /* styleModule */],
-    __WEBPACK_IMPORTED_MODULE_5__modules_eventlisteners__["a" /* eventListenersModule */]
-]);
-// 创建Virtual DOM（h）、比较新旧DOM且更新UI（patch）
-const snabbdomBundle = { patch, h: __WEBPACK_IMPORTED_MODULE_6__h__["a" /* h */] };
-/* harmony export (immutable) */ __webpack_exports__["snabbdomBundle"] = snabbdomBundle;
-
-/* harmony default export */ __webpack_exports__["default"] = (snabbdomBundle);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = init;
+/* harmony export (immutable) */ __webpack_exports__["init"] = init;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vnode__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__is__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__htmldomapi__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__htmldomapi__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__h__ = __webpack_require__(0);
-/* unused harmony reexport h */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__thunk__ = __webpack_require__(6);
-/* unused harmony reexport thunk */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_3__h__["h"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__thunk__ = __webpack_require__(15);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "thunk", function() { return __WEBPACK_IMPORTED_MODULE_4__thunk__["a"]; });
 
 
 
@@ -806,7 +884,7 @@ function init(modules, domApi) {
 
 
 /***/ }),
-/* 5 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -878,7 +956,7 @@ const htmlDomApi = {
 
 
 /***/ }),
-/* 6 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -944,165 +1022,24 @@ const thunk = function thunk(sel, key, fn, args) {
         fn = key;
         key = undefined;
     }
-    return Object(__WEBPACK_IMPORTED_MODULE_0__h__["a" /* h */])(sel, {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__h__["h"])(sel, {
         key: key,
         hook: { init, prepatch }, 
         fn: fn,
         args: args
     });
 };
-/* unused harmony export thunk */
+/* harmony export (immutable) */ __webpack_exports__["a"] = thunk;
 
 /* unused harmony default export */ var _unused_webpack_default_export = (thunk);
 
 
 /***/ }),
-/* 7 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const xlinkNS = 'http://www.w3.org/1999/xlink';
-const xmlNS = 'http://www.w3.org/XML/1998/namespace';
-const colonChar = 58;
-const xChar = 120;
-/**
- *
- *
- * @param {*} oldVnode 老node
- * @param {*} vnode 新node
- * @returns
- */
-function updateAttrs(oldVnode, vnode) {
-    var key, elm = vnode.elm, oldAttrs = oldVnode.data.attrs, attrs = vnode.data.attrs;
-    if (!oldAttrs && !attrs)
-        return;
-    if (oldAttrs === attrs)
-        return;
-    oldAttrs = oldAttrs || {};
-    attrs = attrs || {};
-    // update modified attributes, add new attributes
-    // 遍历新node的attrs，若是和旧的不一样，那么久更新attr
-    for (key in attrs) {
-        const cur = attrs[key];
-        const old = oldAttrs[key];
-        if (old !== cur) {
-            if (cur === true) {
-                // 若新的值是true，那么久设置为空
-                // 其实就是<input autofocus />、<input autofocus="true" />
-                elm.setAttribute(key, "");
-            }
-            else if (cur === false) {
-                // 若是false，那么删掉这个属性
-                elm.removeAttribute(key);
-            }
-            else {
-                // 要是属性名是不是x开头，就像width、height
-                if (key.charCodeAt(0) !== xChar) {
-                    elm.setAttribute(key, cur);
-                }
-                // key: xml:lang
-                else if (key.charCodeAt(3) === colonChar) {
-                    // Assume xml namespace
-                    elm.setAttributeNS(xmlNS, key, cur);
-                }
-                // key: xmlns:xlink、xlink:href
-                else if (key.charCodeAt(5) === colonChar) {
-                    // Assume xlink namespace
-                    elm.setAttributeNS(xlinkNS, key, cur);
-                }
-                else {
-                    elm.setAttribute(key, cur);
-                }
-            }
-        }
-    }
-    // remove removed attributes
-    // use `in` operator since the previous `for` iteration uses it (.i.e. add even attributes with undefined value)
-    // the other option is to remove all attributes with value == undefined
-    for (key in oldAttrs) {
-        if (!(key in attrs)) {
-            elm.removeAttribute(key);
-        }
-    }
-}
-const attributesModule = { create: updateAttrs, update: updateAttrs };
-/* harmony export (immutable) */ __webpack_exports__["a"] = attributesModule;
-
-/* unused harmony default export */ var _unused_webpack_default_export = (attributesModule);
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function updateClass(oldVnode, vnode) {
-    var cur, name, elm = vnode.elm, oldClass = oldVnode.data.class, klass = vnode.data.class;
-    if (!oldClass && !klass)
-        return;
-    if (oldClass === klass)
-        return;
-    oldClass = oldClass || {};
-    klass = klass || {};
-    for (name in oldClass) {
-        if (!klass[name]) {
-            elm.classList.remove(name);
-        }
-    }
-    for (name in klass) {
-        cur = klass[name];
-        if (cur !== oldClass[name]) {
-            // .classList.add 、 .classList.remove
-            elm.classList[cur ? 'add' : 'remove'](name);
-        }
-    }
-}
-const classModule = { create: updateClass, update: updateClass };
-/* harmony export (immutable) */ __webpack_exports__["a"] = classModule;
-
-/* unused harmony default export */ var _unused_webpack_default_export = (classModule);
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function updateProps(oldVnode, vnode) {
-    var key, cur, old, elm = vnode.elm, oldProps = oldVnode.data.props, props = vnode.data.props;
-    if (!oldProps && !props)
-        return;
-    if (oldProps === props)
-        return;
-    oldProps = oldProps || {};
-    props = props || {};
-    for (key in oldProps) {
-        if (!props[key]) {
-            delete elm[key];
-        }
-    }
-    for (key in props) {
-        cur = props[key];
-        old = oldProps[key];
-        // value比较特殊，按理而言old应该和elm[key]一样的，不过value可以很轻松的被改变，就像输入框什么的，所以要是已经改成新值的话也就不用设置了
-        // 其实src之类的也是可以通过dom先修改在patch的，只是花费更高罢了
-        // old、cur、key、elm[key]   2、3、value、3
-        if (old !== cur && (key !== 'value' || elm[key] !== cur)) {
-            elm[key] = cur;
-        }
-    }
-}
-const propsModule = { create: updateProps, update: updateProps };
-/* harmony export (immutable) */ __webpack_exports__["a"] = propsModule;
-
-/* unused harmony default export */ var _unused_webpack_default_export = (propsModule);
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // Bindig `requestAnimationFrame` like this fixes a bug in IE/Edge. See #360 and #409.
 var raf = (typeof window !== 'undefined' && (window.requestAnimationFrame).bind(window)) || setTimeout;
 // 下两帧更改样式，浏览器16帧/ms来渲染，两帧才能看出变化
@@ -1250,15 +1187,16 @@ const styleModule = {
     destroy: applyDestroyStyle,
     remove: applyRemoveStyle
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = styleModule;
+/* harmony export (immutable) */ __webpack_exports__["styleModule"] = styleModule;
 
-/* unused harmony default export */ var _unused_webpack_default_export = (styleModule);
+/* harmony default export */ __webpack_exports__["default"] = (styleModule);
 
 /***/ }),
-/* 11 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /**
  *这里才是真正的触发事件回调
@@ -1381,12 +1319,10 @@ const eventListenersModule = {
     update: updateEventListeners,
     destroy: updateEventListeners
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = eventListenersModule;
+/* harmony export (immutable) */ __webpack_exports__["eventListenersModule"] = eventListenersModule;
 
-/* unused harmony default export */ var _unused_webpack_default_export = (eventListenersModule);
+/* harmony default export */ __webpack_exports__["default"] = (eventListenersModule);
 
 
 /***/ })
-/******/ ])["default"];
-});
-//# sourceMappingURL=snabbdom.js.map
+/******/ ]);
